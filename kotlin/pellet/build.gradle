@@ -1,0 +1,33 @@
+plugins {
+    id "org.jetbrains.kotlin.jvm" version "1.7.+"
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.7.+"
+    id "com.github.johnrengelman.shadow" version "+"
+    id "application"
+}
+
+
+group "benchmark.pellet"
+version "1.0.0"
+mainClassName = "benchmark.AppKt"
+sourceCompatibility = 18
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation platform("dev.pellet:pellet-bom:0.0.8")
+    implementation "dev.pellet:pellet-server"
+    implementation "dev.pellet:pellet-logging"
+    implementation platform("org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.6.+")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8"
+}
+
+shadowJar {
+    mergeServiceFiles()
+    baseName = "server"
+    classifier = null
+    version = null
+}
